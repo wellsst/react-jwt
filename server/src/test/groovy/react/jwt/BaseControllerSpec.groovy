@@ -1,0 +1,19 @@
+package react.jwt
+
+import grails.testing.web.controllers.ControllerUnitTest
+import react.jwt.BaseController
+import spock.lang.Specification
+
+class BaseControllerSpec extends Specification implements ControllerUnitTest<BaseController> {
+
+    def setup() {
+    }
+
+    def cleanup() {
+    }
+
+    void "test something"() {
+        expect:"fix me"
+        true == false
+    }
+}
