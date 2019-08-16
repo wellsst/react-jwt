@@ -10,13 +10,13 @@ class RegisterHandler extends Component {
     }
 
     render() {
-        let content =  ""
+        let content = ""
 
         if (this.state.emailSubmitted) {
             return <RegisterEmailSubmitted email={this.state.email}/>
         } else {
             return <Formik
-                initialValues={{email: 'me@test123.com'}}
+                initialValues={{email: ''}}
                 validate={values => {
                     let errors = {};
                     if (!values.email) {
@@ -46,14 +46,15 @@ class RegisterHandler extends Component {
                              handleSubmit,
                              isSubmitting,
                          }) => (
-                    <Form>
-                        <Field type="email" name="email"/>
-                        <ErrorMessage name="email" component="div"/>
+                    <Form class="form-inline">
+                        <div className="form-group mb-2">
+                            <Field type="email" name="email" class="form-control sr-only-focusable" placeholder="name@example.com"/>
+                            <ErrorMessage name="email" component="div"/>
 
-                        <button type="submit" disabled={isSubmitting}>
-                            Submit
-                        </button>
-
+                            <button type="submit" class="btn btn-primary" disabled={isSubmitting}>
+                                Register
+                            </button>
+                        </div>
                     </Form>
 
                 )}
