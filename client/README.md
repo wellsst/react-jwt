@@ -2,11 +2,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Additions to the base
 
+Formik: https://jaredpalmer.com/formik/docs/overview
 npm install formik --save
 || 
 yarn add formik
 
-
+CSS in JS: https://github.com/emotion-js/emotion
 npm install --save @emotion/core
 
 npm install --save react-router-dom

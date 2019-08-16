@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
+import RegisterHandler from "./RegisterHandler";
 
 class UnauthenticatedApp extends Component {
     render() {
 
         return [
-            <p>
-                Oh looks like you need some authentication to continue
-            </p>
+            <RegisterHandler/>
         ]
     }
 }
