@@ -15,6 +15,24 @@ npm install --save react-router-dom
 npm install react-icons --save (https://www.npmjs.com/package/react-icons)
 
 
+Axios for HTTP:
+npm install axios
+
+Moment:
+
+npm install --save moment react-moment
+
+If timezones required (maybe later)
+npm install --save moment-timezone
+
+
+Typescript:
+
+yarn add typescript
+
+Upgrade caniuse-lite:
+yarn upgrade caniuse-lite browserslist
+
 ## To start
 
 cd client

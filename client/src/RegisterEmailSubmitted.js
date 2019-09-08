@@ -3,8 +3,7 @@ import React from "react";
 class RegisterEmailSubmitted extends React.Component {
     render() {
         return <div>
-            <p>
-                Thank you for registering, to finish you simply need to...</p>
+            Thank you for registering, to finish you simply need to...
 
             <ol>
                 <li>Check your email inbox at: <i>{this.props.email}</i>, you will shortly receive an email
@@ -17,8 +16,7 @@ class RegisterEmailSubmitted extends React.Component {
                 <li>Once prompted, please enter this unique challenge ID: <b> challengeId </b></li>
 
             </ol>
-
-            <p>This request will be removed from the system in approx: -cleanupOlderThan- minutes.</p>
+            This request will be removed from the system in approx: -cleanupOlderThan- minutes.
 
         </div>
     }

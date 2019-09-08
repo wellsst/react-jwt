@@ -34,11 +34,10 @@ class LoginController extends BaseController {
     }
 
     /* User has requested to start the registration process */
-
     def registerRequest() {
         String remoteAddr = request.remoteAddr
         String emailAddress = request.JSON.emailAddress
-        log.info "registerRequest: ${emailAddress}"
+        log.info "registerRequest: ${emailAddress} from addr: ${remoteAddr}"
         try {
             int requestLimit = authService.getAppConfigValue('maxRequestsPerRemoteAddr', 3) as int
             if (RegistrationRequest.countByRequestRemoteAddr(remoteAddr) < requestLimit) {
