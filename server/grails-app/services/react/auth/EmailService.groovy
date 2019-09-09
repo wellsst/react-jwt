@@ -16,13 +16,11 @@ class EmailService extends BaseService {
         String loginLink = "${serverURL}/registerConfirm/${user.registrationRequest.requestId}"
         //log.info "NOT Yet Sending login request email: ${user.username} to ${loginLink}"
 
-/*
         log.info loginLink
         log.info getAppConfigValue("name", "JWT Template")
         log.info user.username
         log.info user.registrationRequest.requestId
         log.info getAppConfigValue('cleanupRequestsOlderThanMinutes', 15)
-*/
         // Send email
         sendMail {
             multipart true

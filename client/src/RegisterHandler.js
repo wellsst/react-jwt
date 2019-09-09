@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import RegisterEmailSubmitted from "./RegisterEmailSubmitted";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import axios from 'axios';
+import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
+import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
 
 class RegisterHandler extends Component {
 
@@ -11,88 +11,116 @@ class RegisterHandler extends Component {
         this.state = {
             email: "",
             isSubmitting: false,
-            emailSubmitted: false
+            emailSubmitted: false,
+            serverError: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.validator = new SimpleReactValidator();
     }
 
-
-    async handleSubmit (e) {
+    async handleSubmit(e) {
         e.preventDefault();
-        console.log(e);
-        const response = await API.post(
-            'registerRequest',
-            {emailAddress: this.state.email}
-        )
-        console.log(response.data)
+        if (this.validator.allValid()) {
+            await API.post(
+                'registerRequest',
+                {emailAddress: this.state.email}
+            ).then((response) => {
+                // Success 🎉
+                console.log(response);
+                this.setState({
+                    emailSubmitted: true,
+                    challengeId: response.data.challengeId,
+                    cleanupOlderThan: response.data.cleanupOlderThan });
+            }).catch((error) => {
+                // Error 😨
+                if (error.response) {
+                    /*
+                     * The request was made and the server responded with a
+                     * status code that falls out of the range of 2xx
+                     */
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                    this.setState({serverError: error.response.data});
+                } else if (error.request) {
+                    /*
+                     * The request was made but no response was received, `error.request`
+                     * is an instance of XMLHttpRequest in the browser and an instance
+                     * of http.ClientRequest in Node.js
+                     */
+                    console.log(error.request);
+                    this.setState({serverError: "The server seems unreachable, try again later"});
+                } else {
+                    // Something happened in setting up the request and triggered an Error
+                    console.log('Error', error.message);
+                    this.setState({serverError: "Issue sending request"});
+                }
+                console.log(error.config);
+            });
+        } else {
+            this.validator.showMessages();
+            // rerender to show messages for the first time
+            // you can use the autoForceUpdate option to do this automatically`
+            this.forceUpdate();
+        }
     }
 
-    handleChange (e) {
-        this.setState({ [e.target.name]: e.target.value });
+    handleChange(e) {
+        const {name, value} = e.target;
+        this.setState({
+            [name]: value,
+        });
     };
 
     render() {
         if (this.state.emailSubmitted) {
-            return <RegisterEmailSubmitted email={this.state.email}/>
+            return <RegisterEmailSubmitted email={this.state.email} challengeId={this.state.challengeId} cleanupOlderThan={this.state.cleanupOlderThan}/>
         } else {
-            return <Formik
-                //initialValues={{email: '123'}}
-                validate={values => {
-                    let errors = {};
-                    if (!values.email) {
-                        errors.email = 'Required';
-                    } else if (
-                        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                    ) {
-                        errors.email = 'Invalid email address';
-                    }
-                    return errors;
-                }}
+            return <Form>
+                <FormGroup>
+                    <Label for="exampleEmail">Email address</Label>
+                    <Input type="email" name="email" id="email" placeholder="Enter email" value={this.state.email}
+                           onChange={this.handleChange} autoFocus/>
+                    <small id="emailHelp" className="form-text text-muted">
+                        We'll never share your email with anyone else.
+                    </small>
+                    {this.validator.message('email', this.state.email, 'required|email')}
+                </FormGroup>
 
-                /*onSubmit={async (values, {setSubmitting}) => {
-                    this.setState({emailSubmitted: true, email: values.email})
 
-                    const response = await axios.post(
-                        'http://localhost:8080',
-                        {example: 'data'},
-                        {headers: {'Content-Type': 'application/json'}}
-                    )
-                    console.log(response.data)
+                    <Alert color="danger">
+                        TODO: Make me a component: {this.state.serverError}
+                    </Alert>
 
-                    // todo: call back here
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
-                }}*/
-                render={({
-                             values,
-                             errors,
-                             status,
-                             touched,
-                             handleBlur,
-                             handleChange,
-                             handleSubmit,
-                             isSubmitting,
-                         }) => (
-                    <Form class="form-inline" onSubmit={this.handleSubmit}>
-                        <div className="form-group mb-2">
-                            <Field type="email" name="email" class="form-control sr-only-focusable"
-                                   placeholder="name@example.com" onChange={this.handleChange}/>
-                            <ErrorMessage name="email" component="div"/>
+                <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                    Register
+                </Button>
+            </Form>
 
-                            <button type="submit" class="btn btn-primary" disabled={isSubmitting}>
-                                Register
-                            </button>
+            /*render={({
+                         values,
+                         errors,
+                         status,
+                         touched,
+                         handleBlur,
+                         handleChange,
+                         handleSubmit,
+                         isSubmitting,
+                     }) => (
+                <Form class="form-inline" onSubmit={this.handleSubmit}>
+                    <div className="form-group mb-2">
+                        <Field type="email" name="email" class="form-control sr-only-focusable"
+                               placeholder="name@example.com" onChange={this.handleChange}/>
+                        <ErrorMessage name="email" component="div"/>
 
-                        </div>
-                    </Form>
+                        <button type="submit" class="btn btn-primary" disabled={isSubmitting}>
+                            Register
+                        </button>
 
-                )}
-            >
+                    </div>
+                </Form>*/
 
-            </Formik>
         }
         /*return [
             content

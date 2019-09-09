@@ -50,7 +50,8 @@ class LoginController extends BaseController {
             }
         } catch (all) {
             all.printStackTrace()
-            respond status: HttpStatus.UNAUTHORIZED
+            render text: {msg: all.message}, status: HttpStatus.BAD_REQUEST
+            // respond status: HttpStatus.UNAUTHORIZED
         }
     }
 
@@ -62,7 +63,7 @@ class LoginController extends BaseController {
         if (requestCount == 1) {
             try {
                 if (Environment.current == Environment.DEVELOPMENT) {
-                    serverURL = "http://localhost:4200"
+                    serverURL = "http://localhost:8080"
                 }
                 redirect url: "${serverURL}/register-confirm?requestId=${requestId}"
             } catch (all) {

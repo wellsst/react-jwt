@@ -13,10 +13,10 @@ class RegisterEmailSubmitted extends React.Component {
                     process on them)
                 </li>
 
-                <li>Once prompted, please enter this unique challenge ID: <b> challengeId </b></li>
+                <li>Once prompted, please enter this unique challenge ID: <b> {this.props.challengeId} </b></li>
 
             </ol>
-            This request will be removed from the system in approx: -cleanupOlderThan- minutes.
+            This request will be removed from the system in approx: <b>{this.props.cleanupOlderThan}</b> minutes.
 
         </div>
     }

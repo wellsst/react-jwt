@@ -2,10 +2,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Additions to the base
 
+
+Deprecated:::
 Formik: https://jaredpalmer.com/formik/docs/overview
 npm install formik --save
 || 
 yarn add formik
+
+Instead changed to:
+https://github.com/dockwa/simple-react-validator
+npm install simple-react-validator --save
 
 CSS in JS: https://github.com/emotion-js/emotion
 npm install --save @emotion/core
@@ -16,7 +22,7 @@ npm install react-icons --save (https://www.npmjs.com/package/react-icons)
 
 
 Axios for HTTP:
-npm install axios
+npm install axios --save
 
 Moment:
 
@@ -33,12 +39,16 @@ yarn add typescript
 Upgrade caniuse-lite:
 yarn upgrade caniuse-lite browserslist
 
+
+
 ## To start
+
+For email as a server on windows use mailslurper
 
 cd client
 npm start
 
-ccd server (gradle)
+cd server (gradle)
 server:bootRun
 
 
