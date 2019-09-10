@@ -2,6 +2,8 @@ import React from 'react';
 import {useUser} from './user-context'
 import 'whatwg-fetch';
 import {FullPageSpinner} from "./auth-context";
+import RegisterConfirm from "./RegisterConfirm";
+import {Route} from "react-router-dom";
 
 const loadAuthenticatedApp = () => import('./AuthenticatedApp')
 const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
@@ -14,6 +16,7 @@ function App() {
         loadAuthenticatedApp()
     }, [])
     return (
+
         <div id="content">
             <section className="row colset-2-its">
                 <h1>JWT React Template/Demo</h1>

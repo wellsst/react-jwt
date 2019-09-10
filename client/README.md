@@ -51,6 +51,8 @@ npm start
 cd server (gradle)
 server:bootRun
 
+Borrowed a lot for auth from: https://github.com/kentcdodds/bookshelf
+https://kentcdodds.com/blog/authentication-in-react-applications
 
 ## Available Scripts
 

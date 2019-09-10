@@ -6,12 +6,9 @@ import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Router from "react-router-dom/es/Router";
 import Route from "react-router-dom/es/Route";
 import App from "./App";
-import RegisterConfirm from "./RegisterConfirm";
-import RegisterStartForm from "./RegisterStartForm";
-import {BrowserRouter, Link, Switch} from "react-router-dom";
-import Notfound from "./Notfound";
+import {Redirect} from "react-router-dom";
 
-class RegisterHandler extends Component {
+class RegisterStartForm extends Component {
 
     constructor(props) {
         super(props);
@@ -38,7 +35,21 @@ class RegisterHandler extends Component {
                 this.setState({
                     emailSubmitted: true,
                     challengeId: response.data.challengeId,
-                    cleanupOlderThan: response.data.cleanupOlderThan });
+                    cleanupOlderThan: response.data.cleanupOlderThan
+                });
+                /*return <Redirect to='/registerSubmitted' />*/
+                const { match: { params }, history } = this.props;
+                history.push({
+                    pathname: '/registerSubmitted',
+                   // search: '?query=abc',
+                    state: {
+                        email: this.state.email,
+                        emailSubmitted: true,
+                        challengeId: response.data.challengeId,
+                        cleanupOlderThan: response.data.cleanupOlderThan
+                    }
+                })
+
             }).catch((error) => {
                 // Error 😨
                 if (error.response) {
@@ -81,53 +92,27 @@ class RegisterHandler extends Component {
     };
 
     render() {
-        return <BrowserRouter>
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/">Start again</Link>
-                    </li>
-                    {/*<li>
-                        <Link to="/registerSubmitted">registerSubmitted</Link>
-                    </li>
-                    <li>
-                        <Link to="/contact">Dud link</Link>
-                    </li>*/}
-                </ul>
-                <Switch>
-                    <Route exact path="/" component={RegisterStartForm} />
-                    <Route path="/registerSubmitted" component={RegisterEmailSubmitted} />
-                    <Route path="/registerConfirmClient/:requestId" component={RegisterConfirm} />
-                    <Route component={Notfound} />
-                </Switch>
-            </div>
-        </BrowserRouter>
-
-        /*if (this.state.emailSubmitted) {
-            return <RegisterEmailSubmitted email={this.state.email} challengeId={this.state.challengeId} cleanupOlderThan={this.state.cleanupOlderThan}/>
-        } else {
-            return <Form>
-                <FormGroup>
-                    <Label for="email">Email address</Label>
-                    <Input type="email" name="email" id="email" placeholder="Enter email" value={this.state.email}
-                           onChange={this.handleChange} autoFocus/>
-                    <small id="emailHelp" className="form-text text-muted">
-                        We'll never share your email with anyone else.
-                    </small>
-                    {this.validator.message('email', this.state.email, 'required|email')}
-                </FormGroup>
+        return <Form>
+            <FormGroup>
+                <Label for="email">Email address</Label>
+                <Input type="email" name="email" id="email" placeholder="Enter email" value={this.state.email}
+                       onChange={this.handleChange} autoFocus/>
+                <small id="emailHelp" className="form-text text-muted">
+                    We'll never share your email with anyone else.
+                </small>
+                {this.validator.message('email', this.state.email, 'required|email')}
+            </FormGroup>
 
 
-                    <Alert color="danger">
-                        TODO: Make me a component: {this.state.serverError}
-                    </Alert>
+            <Alert color="danger">
+                TODO: Make me a component: {this.state.serverError}
+            </Alert>
 
-                <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                    Register
-                </Button>
-            </Form>
-        }*/
+            <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                Register
+            </Button>
+        </Form>
     }
 }
 
-export default RegisterHandler;
+export default RegisterStartForm;
