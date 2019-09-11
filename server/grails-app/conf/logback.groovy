@@ -34,4 +34,13 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
-root(INFO, ['STDOUT'])
+appender("FILE", FileAppender) {
+    file = "${targetDir}/app.log"
+    append = false
+    encoder(PatternLayoutEncoder) {
+        charset = StandardCharsets.UTF_8
+        pattern = "%level %logger - %msg%n"
+    }
+}
+
+root(INFO, ['STDOUT', 'FILE'])

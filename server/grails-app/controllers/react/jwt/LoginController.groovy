@@ -63,9 +63,9 @@ class LoginController extends BaseController {
         if (requestCount == 1) {
             try {
                 if (Environment.current == Environment.DEVELOPMENT) {
-                    serverURL = "http://localhost:8080"
+                    serverURL = "http://localhost:3000"
                 }
-                redirect url: "${serverURL}/registerConfirmClient?requestId=${requestId}"
+                redirect url: "${serverURL}/registerConfirmClient/${requestId}"
             } catch (all) {
                 log.error all.message
                 render text: all.message, status: HttpStatus.NOT_FOUND

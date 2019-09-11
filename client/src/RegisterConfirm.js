@@ -3,30 +3,29 @@ import RegisterEmailSubmitted from "./RegisterEmailSubmitted";
 import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
 import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
+import {AuthService} from "./auth.service";
 
 class RegisterConfirm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
+            requestId: "",
+            challengeId: "",
             isSubmitting: false,
-            emailSubmitted: false,
             serverError: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validator = new SimpleReactValidator();
-
-
     }
 
     async handleSubmit(e) {
         e.preventDefault();
         if (this.validator.allValid()) {
             await API.post(
-                'registerRequest',
-                {emailAddress: this.state.email}
+                'registerAccept',
+                {requestId: this.state.requestId, challengeId: this.state.challengeId }
             ).then((response) => {
                 // Success 🎉
                 console.log(response);
@@ -35,6 +34,12 @@ class RegisterConfirm extends Component {
                     challengeId: response.data.challengeId,
                     cleanupOlderThan: response.data.cleanupOlderThan
                 });
+
+                let jwt = response.data.jwt;
+                console.log(jwt);
+                let authService = new AuthService();
+                authService.login(jwt);
+
             }).catch((error) => {
                 // Error 😨
                 if (error.response) {
@@ -45,7 +50,7 @@ class RegisterConfirm extends Component {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
-                    this.setState({serverError: error.response.data});
+                    this.setState({serverError: error.response.data.message});
                 } else if (error.request) {
                     /*
                      * The request was made but no response was received, `error.request`
@@ -77,13 +82,32 @@ class RegisterConfirm extends Component {
     };
 
     componentDidMount() {
-
+        const {match: {params}} = this.props;
+        const requestId = params.requestId;
+        this.setState({requestId: requestId});
     }
 
     render() {
-        const {match: {params}} = this.props;
-        const requestId = params.requestId
-        return <p>Confirm requestId: {this.props.match.params.requestId} - {requestId}</p>
+        return <Form>
+            <FormGroup>
+                <Label for="challengeId">Enter the challengeId to finish registration</Label>
+                <Input type="number" name="challengeId" id="challengeId" placeholder="ChallengeId"
+                       value={this.state.challengeId}
+                       onChange={this.handleChange} autoFocus size="10"/>
+                <small id="emailHelp" className="form-text text-muted">
+                    Enter the challengeId provided
+                </small>
+                {this.validator.message('challengeId', this.state.challengeId, 'required|numeric|min:4|max:4')}
+            </FormGroup>
+
+            <Alert color="danger">
+                TODO: Make me a component: {this.state.serverError}
+            </Alert>
+
+            <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+                Complete Registration
+            </Button>
+        </Form>
     }
 }
 

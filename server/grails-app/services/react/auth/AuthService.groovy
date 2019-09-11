@@ -2,6 +2,7 @@ package react.auth
 
 import auth.AuthException
 import grails.gorm.transactions.Transactional
+import groovy.time.TimeCategory
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
 import io.jsonwebtoken.JwtException
@@ -62,13 +63,17 @@ class AuthService extends BaseService {
         SecretKey key = Keys.hmacShaKeyFor((getAppConfigValue('jwt.key', '') as String).bytes)
 
         // Create a signed JWT - a JWS
-        def now = new Date()
+        Date now = new Date()
+        Date expirationDate = now //  = now + (getAppConfigValue("jwt.daysToExpire", 365) as Integer)
+        use (TimeCategory) {
+            expirationDate =  (getAppConfigValue("jwt.daysToExpire", 365) as Integer).days.from.now
+        }
         String jws = Jwts.builder().
                 setIssuer(getAppConfigValue("jwt.issuer", "https://github.com/wellsst/jwt-template") as String).
                 setSubject(requestingUser.username).
                 setIssuedAt(now).
                 setNotBefore(now).
-                setExpiration(now + (getAppConfigValue("jwt.daysToExpire", 365) as Integer)).
+                setExpiration(expirationDate).
                 signWith(key).compact()
 
         // todo: would setting the ID, saving it and rechecking on each request add a layer of security?

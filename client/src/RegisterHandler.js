@@ -2,13 +2,9 @@ import React, {Component} from 'react';
 import RegisterEmailSubmitted from "./RegisterEmailSubmitted";
 import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
-import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
-import Router from "react-router-dom/es/Router";
-import Route from "react-router-dom/es/Route";
-import App from "./App";
 import RegisterConfirm from "./RegisterConfirm";
 import RegisterStartForm from "./RegisterStartForm";
-import {BrowserRouter, Link, Switch} from "react-router-dom";
+import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import Notfound from "./Notfound";
 
 class RegisterHandler extends Component {
@@ -102,31 +98,6 @@ class RegisterHandler extends Component {
                 </Switch>
             </div>
         </BrowserRouter>
-
-        /*if (this.state.emailSubmitted) {
-            return <RegisterEmailSubmitted email={this.state.email} challengeId={this.state.challengeId} cleanupOlderThan={this.state.cleanupOlderThan}/>
-        } else {
-            return <Form>
-                <FormGroup>
-                    <Label for="email">Email address</Label>
-                    <Input type="email" name="email" id="email" placeholder="Enter email" value={this.state.email}
-                           onChange={this.handleChange} autoFocus/>
-                    <small id="emailHelp" className="form-text text-muted">
-                        We'll never share your email with anyone else.
-                    </small>
-                    {this.validator.message('email', this.state.email, 'required|email')}
-                </FormGroup>
-
-
-                    <Alert color="danger">
-                        TODO: Make me a component: {this.state.serverError}
-                    </Alert>
-
-                <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                    Register
-                </Button>
-            </Form>
-        }*/
     }
 }
 
