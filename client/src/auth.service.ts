@@ -1,4 +1,10 @@
-import moment from 'moment';
+// import moment from 'moment';
+
+// fixme: Hack to get around TS/Moment incompat issues
+let moment = require("moment");
+if ("default" in moment) {
+    moment = moment["default"];
+}
 
 export class AuthService {
     /*public token: string;
@@ -6,12 +12,9 @@ export class AuthService {
     */
     public error: string;
 
+
     constructor() {
         this.error = ""
-        // set token if saved in local storage
-        /*var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
-        this.username = currentUser && currentUser.username;*/
     }
 
     /*signupRequest(emailAddress: string): Observable<JwtServerResponse> {
@@ -84,11 +87,18 @@ export class AuthService {
 
     public isLoggedIn() {
         // todo: Could check not before as well
+        if (typeof moment() === 'undefined') {
+            return false
+        }
         return moment().isBefore(this.getExpiration());
     }
 
     isLoggedOut() {
         return !this.isLoggedIn();
+    }
+
+    getUser() {
+        return localStorage.getItem('subject')
     }
 
     getExpiration() {

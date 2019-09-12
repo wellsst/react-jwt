@@ -2,8 +2,6 @@ import React from 'react';
 import {useUser} from './user-context'
 import 'whatwg-fetch';
 import {FullPageSpinner} from "./auth-context";
-import RegisterConfirm from "./RegisterConfirm";
-import {Route} from "react-router-dom";
 
 const loadAuthenticatedApp = () => import('./AuthenticatedApp')
 const AuthenticatedApp = React.lazy(loadAuthenticatedApp)

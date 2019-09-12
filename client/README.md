@@ -32,6 +32,9 @@ If timezones required (maybe later)
 npm install --save moment-timezone
 
 
+npm install --save react-timeout, used on the you are logged in component to then do a redirect after a time.
+because of this I had to: npm install create-react-class --save
+
 Typescript:
 
 yarn add typescript

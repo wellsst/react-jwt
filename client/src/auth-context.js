@@ -2,6 +2,7 @@ import React from 'react'
 import {FaSpinner} from 'react-icons/fa'
 
 import {keyframes} from '@emotion/core'
+import {AuthService} from "./auth.service";
 
 const AuthContext = React.createContext()
 
@@ -31,7 +32,13 @@ function AuthProvider(props) {
 
     let requestMade = false;
 
-    const data = {user: null, listItems: []};
+    let authService = new AuthService();
+    let user = null;
+    if (authService.isLoggedIn()) {
+        console.log("User is logged in as: " + authService.getUser())
+        user = "loggedIn"
+    }
+    const data = {user: user};
 
     // code for pre-loading the user's information if we have their token in localStorage goes here
     // 🚨 this is the important bit.
@@ -44,29 +51,33 @@ function AuthProvider(props) {
         return <FullPageSpinner />
     }
 
-    const login = () => { this.requestMade = false } // make a login request
+    const login = () => {
+        this.requestMade = false
+        let authService = new AuthService();
+        const data = {user: "some user", listItems: []};
+        // return authService.isLoggedIn();
+        // return authService.isLoggedIn();
+    } // make a login request
 
-    const register = () => {} // register the user
-
-    const logout = () => {} // clear the token in localStorage and the user data
+    const logout = () => {
+        let authService = new AuthService();
+        authService.logout(); // todo call this from a button
+    } // clear the token in localStorage and the user data
 
     // note, I'm not bothering to optimize this `value` with React.useMemo here
     // because this is the top-most component rendered in our app and it will very
     // rarely re-render/cause a performance problem.
-
     return (
-        <AuthContext.Provider value={{data, login, logout, register}} {...props} />
+        <AuthContext.Provider value={{data, login, logout}} {...props} />
     )
-
 }
 
-const useAuth = () => React.useContext(AuthContext)
+function useAuth() {
+    const context = React.useContext(AuthContext)
+    if (context === undefined) {
+        throw new Error(`useAuth must be used within a AuthProvider`)
+    }
+    return context
+}
 
 export {AuthProvider, useAuth}
-
-// the UserProvider in user-context.js is basically:
-// const UserProvider = props => (
-//   <UserContext.Provider value={useAuth().data.user} {...props} />
-// )
-// and the useUser hook is basically this:
-//const useUser = () => React.useContext(UserContext)

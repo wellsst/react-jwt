@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import RegisterEmailSubmitted from "./RegisterEmailSubmitted";
 import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
 import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
@@ -40,6 +39,16 @@ class RegisterConfirm extends Component {
                 let authService = new AuthService();
                 authService.login(jwt);
 
+                const { match: { params }, history } = this.props;
+                history.push({
+                    pathname: '/loggedIn',
+                    /*state: {
+                        email: this.state.email,
+                        emailSubmitted: true,
+                        challengeId: response.data.challengeId,
+                        cleanupOlderThan: response.data.cleanupOlderThan
+                    }*/
+                })
             }).catch((error) => {
                 // Error 😨
                 if (error.response) {
