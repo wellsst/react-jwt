@@ -1,6 +1,6 @@
 package react.jwt
 
-
+import grails.converters.JSON
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 
@@ -30,6 +30,17 @@ class UtilController extends BaseController {
         render base64Key
     }
 
+    def testSecurePost() {
+        try {
+            User user = checkPermissions(getUserToken())
+            String data = request. JSON.data
+            render "Server says you sent: ${data}"
+        } catch (all) {
+            log.error(all.message)
+            render status: UNAUTHORIZED
+        }
+    }
+
 
     def genkey() {
         log.info("Generate secret key...")
@@ -55,20 +66,6 @@ class UtilController extends BaseController {
             render status: UNAUTHORIZED
         }
 
-    }
-
-    def users() {
-        try {
-            User user = checkPermissions(getUserToken())
-            List<User> users = User.list()
-            users.each {
-                log.info it.toString()
-            }
-            render users
-        } catch (all) {
-            log.error(all.message)
-            render status: UNAUTHORIZED
-        }
     }
 
     def removeAllTokens() {

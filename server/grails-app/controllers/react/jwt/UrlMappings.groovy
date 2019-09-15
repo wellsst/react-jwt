@@ -10,6 +10,7 @@ class UrlMappings {
         "/registerConfirm/$requestId" (controller: "login", action: "registerConfirm")
         "/registerAccept" (controller: "login", action: "registerAccept")
         "/loginWithJWT" (controller: "login", action: "loginWithJWT")
+        "/testSecurePost" (controller: "util", action: "testSecurePost")
 
         "/listRegReqs" (controller: "util", action: "listRegReqs")
         "/users" (controller: "util", action: "users")

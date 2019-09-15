@@ -1,8 +1,5 @@
 package react.auth
 
-import grails.gorm.transactions.Transactional
-
-@Transactional
 class BaseService {
 
     def grailsApplication

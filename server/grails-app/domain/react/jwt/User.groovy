@@ -37,6 +37,7 @@ class User {
 
     static mapping = {
         username index: "idx_username"
+        loginToken length: 500
     }
 
     @Override

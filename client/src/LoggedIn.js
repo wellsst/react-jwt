@@ -5,11 +5,7 @@ class LoggedIn extends Component {
     goHome() {
         const {match: {params}, history} = this.props;
         history.push({
-            pathname: '/',
-            /*state: {
-                email: this.state.email,
-                emailSubmitted: true,
-            }*/
+            pathname: '/'
         })
     }
 

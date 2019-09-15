@@ -5,7 +5,7 @@ import API from "./API";
 import RegisterConfirm from "./RegisterConfirm";
 import RegisterStartForm from "./RegisterStartForm";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
-import Notfound from "./Notfound";
+import NotFound from "./NotFound";
 import LoggedIn from "./LoggedIn";
 
 class RegisterHandler extends Component {
@@ -96,7 +96,7 @@ class RegisterHandler extends Component {
                     <Route path="/registerSubmitted" component={RegisterEmailSubmitted} />
                     <Route path="/registerConfirmClient/:requestId" component={RegisterConfirm} />
                     <Route path="/loggedIn" component={LoggedIn} />
-                    <Route component={Notfound} />
+                    <Route component={NotFound} />
                 </Switch>
             </div>
         </BrowserRouter>

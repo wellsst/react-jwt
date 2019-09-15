@@ -101,6 +101,10 @@ export class AuthService {
         return localStorage.getItem('subject')
     }
 
+    getToken() {
+        return localStorage.getItem('id_token')
+    }
+
     getExpiration() {
         // todo: Rethink if default setting expired to now if no key is a good idea
         const expiration = localStorage.getItem('expires_at') || JSON.stringify(new Date());

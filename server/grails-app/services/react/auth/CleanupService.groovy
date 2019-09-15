@@ -1,11 +1,15 @@
 package react.auth
 
-import grails.gorm.transactions.Transactional
 import groovy.time.TimeCategory
+import groovy.transform.CompileStatic
+import groovy.util.logging.Slf4j
 import org.springframework.scheduling.annotation.Scheduled
 import react.jwt.RegistrationRequest
 
-@Transactional
+import java.text.SimpleDateFormat
+
+@Slf4j
+// @CompileStatic
 class CleanupService extends BaseService {
 
     boolean lazyInit = false
@@ -24,5 +28,10 @@ class CleanupService extends BaseService {
         }
         log.info(" ... removing ${candidatesToDelete.size()} registration requests")
         RegistrationRequest.deleteAll(candidatesToDelete)
+    }
+
+    @Scheduled(fixedDelay = 10000L)
+    void executeEveryTen() {
+        log.info "Simple Job every 10 seconds :{}", new SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(new Date())
     }
 }

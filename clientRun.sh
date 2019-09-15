@@ -1,0 +1,1 @@
+./gradlew client:bootRun

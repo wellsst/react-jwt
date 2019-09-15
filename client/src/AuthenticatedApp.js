@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import AppNav from './AppNav';
 import {Row} from 'reactstrap'
-import {BrowserRouter as Router, Link} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 
 import grailsLogo from './images/grails-cupsonly-logo-white.svg';
 import reactLogo from './images/logo.svg';
 import {CLIENT_VERSION, REACT_VERSION, SERVER_URL} from './config';
 import 'whatwg-fetch';
 import Footer from "./Footer";
+import RegisterEmailSubmitted from "./RegisterEmailSubmitted";
+import SecureAxiosTest from "./SecureAxiosTest";
 
 class AuthenticatedApp  extends Component {
     state = {
@@ -76,6 +78,7 @@ class AuthenticatedApp  extends Component {
                             <Link to="/welcome">
                                     <span
                                         className="label">You will need to have a valid JWT token to see this</span>
+                                Secure Axios Test: <SecureAxiosTest/>
                             </Link>
 
                             <div id="controllers" role="navigation">
