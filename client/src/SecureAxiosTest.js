@@ -3,14 +3,15 @@ import SimpleReactValidator from 'simple-react-validator';
 import API, {httpPost, securePost} from "./API";
 import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {AuthService} from "./auth.service";
+import Message from "./Message";
 
 class SecureAxiosTest extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            requestId: "",
-            challengeId: "",
+            data: "",
+            serverMessage: "",
             isSubmitting: false,
             serverError: ""
         };
@@ -19,17 +20,18 @@ class SecureAxiosTest extends Component {
         this.validator = new SimpleReactValidator();
     }
 
-    successHandler(d) {
-        console.log(d)
+    successHandler(response) {
+        console.log(response)
+        this.setState({serverMessage: response.data.message})
+
     }
 
     async handleSubmit(e) {
         e.preventDefault();
         if (this.validator.allValid()) {
-            let api = new API()
             securePost('testSecurePost',
                 {data: this.state.data},
-                this.successHandler);
+                this.successHandler.bind(this));
         } else {
             this.validator.showMessages();
             // rerender to show messages for the first time
@@ -49,21 +51,17 @@ class SecureAxiosTest extends Component {
         return <Form>
             <FormGroup>
                 <Label for="data">Enter the challengeId to finish registration</Label>
-                <Input type="text" name="data" id="data" placeholder="Type sometihng"
+                <Input type="text" name="data" id="data" placeholder="Type something to send to the server with JWT auth"
                        value={this.state.data}
                        onChange={this.handleChange} autoFocus/>
-                <small id="emailHelp" className="form-text text-muted">
-                    Enter the challengeId provided
-                </small>
-                {this.validator.message('data', this.state.data, 'required')}
+                {this.validator.message('data', this.state.data, 'required|max:200')}
             </FormGroup>
 
-            <Alert color="danger">
-                TODO: Make me a component: {this.state.serverError}
-            </Alert>
+            <Message message={this.state.serverMessage}/>
+            <Message message={this.state.serverError} type='danger'/>
 
             <Button variant="primary" type="submit" onClick={this.handleSubmit}>
-                Test it
+                Test server response
             </Button>
         </Form>
     }

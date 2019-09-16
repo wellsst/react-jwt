@@ -17,7 +17,6 @@ export function securePost(endpoint, dataMap, successHandler) {
 
     if (token) {
         instance.defaults.headers.common['loginToken'] = token;
-
         httpPost(instance, endpoint, dataMap, successHandler)
     }
 }

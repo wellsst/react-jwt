@@ -3,6 +3,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
 import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {AuthService} from "./auth.service";
+import Message from "./Message";
 
 class RegisterConfirm extends Component {
 
@@ -109,9 +110,8 @@ class RegisterConfirm extends Component {
                 {this.validator.message('challengeId', this.state.challengeId, 'required|numeric|min:4|max:4')}
             </FormGroup>
 
-            <Alert color="danger">
-                TODO: Make me a component: {this.state.serverError}
-            </Alert>
+            <Message message={this.state.serverMessage}/>
+            <Message message={this.state.serverError} type='danger'/>
 
             <Button variant="primary" type="submit" onClick={this.handleSubmit}>
                 Complete Registration

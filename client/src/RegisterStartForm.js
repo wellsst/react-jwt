@@ -7,6 +7,7 @@ import Router from "react-router-dom/es/Router";
 import Route from "react-router-dom/es/Route";
 import App from "./App";
 import {Redirect} from "react-router-dom";
+import Message from "./Message";
 
 class RegisterStartForm extends Component {
 
@@ -103,10 +104,8 @@ class RegisterStartForm extends Component {
                 {this.validator.message('email', this.state.email, 'required|email')}
             </FormGroup>
 
-
-            <Alert color="danger">
-                TODO: Make me a component: {this.state.serverError}
-            </Alert>
+            <Message message={this.state.serverMessage}/>
+            <Message message={this.state.serverError} type='danger'/>
 
             <Button variant="primary" type="submit" onClick={this.handleSubmit}>
                 Register

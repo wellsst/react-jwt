@@ -7,6 +7,7 @@ class LoggedIn extends Component {
         history.push({
             pathname: '/'
         })
+        this.forceUpdate();
     }
 
     componentDidMount() {

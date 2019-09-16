@@ -33,8 +33,10 @@ class UtilController extends BaseController {
     def testSecurePost() {
         try {
             User user = checkPermissions(getUserToken())
-            String data = request. JSON.data
-            render "Server says you sent: ${data}"
+            String data = request.JSON.data
+            String msg = "At ${new Date()} the server says you sent: ${data}"
+            def response = [message: msg]
+            respond response
         } catch (all) {
             log.error(all.message)
             render status: UNAUTHORIZED
