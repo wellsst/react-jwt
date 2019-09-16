@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
-import RegisterEmailSubmitted from "./RegisterEmailSubmitted";
 import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
-import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
-import Router from "react-router-dom/es/Router";
-import Route from "react-router-dom/es/Route";
-import App from "./App";
-import {Redirect} from "react-router-dom";
+import { Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Message from "./Message";
 
 class RegisterStartForm extends Component {

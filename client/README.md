@@ -24,6 +24,9 @@ npm install react-icons --save (https://www.npmjs.com/package/react-icons)
 Axios for HTTP:
 npm install axios --save
 
+GraphQL - apollo
+yarn add apollo-boost react-apollo graphql
+
 Moment:
 
 npm install --save moment react-moment

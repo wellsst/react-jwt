@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import API, {httpPost, securePost} from "./API";
-import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
-import {AuthService} from "./auth.service";
+import {securePost} from "./API";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Message from "./Message";
 
 class SecureAxiosTest extends Component {
