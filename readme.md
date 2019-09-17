@@ -75,6 +75,8 @@ Consider running a local mail server such as https://mailslurper.com or point to
 
 ## Basic 'Happy path'...
 
+TODO:  This is just a copy of the Angular JWT PoC, update with React (the concept is similar)
+
 ### Landing page
 
 A user will see this public unsecured page as an entry point to your app, with a warning if it is not running over a secure connection
@@ -137,7 +139,8 @@ On the server you can currently see this via the graphql browser, it looks like:
 * Improve unit tests on client and server
 * Add admin type/util features such as list users token, expire tokens
 * User login history
-* Lockdown the grails graphQL service
+* Logout
+* Switch user
 
 ##  Dependencies
 

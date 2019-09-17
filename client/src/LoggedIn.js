@@ -3,11 +3,7 @@ import React, {Component, useEffect} from "react";
 class LoggedIn extends Component {
 
     goHome() {
-        const {match: {params}, history} = this.props;
-        history.push({
-            pathname: '/'
-        })
-        this.forceUpdate();
+        window.location.reload();
     }
 
     componentDidMount() {
