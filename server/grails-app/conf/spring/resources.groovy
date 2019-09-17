@@ -11,6 +11,7 @@ import org.grails.gorm.graphql.plugin.DefaultGraphQLContextBuilder
 import org.grails.web.servlet.mvc.GrailsWebRequest
 
 import org.grails.gorm.graphql.plugin.GraphQLPostProcessor
+import react.auth.AuthService
 
 @Slf4j
 class MyGraphQLCustomizer extends GraphQLPostProcessor {
@@ -52,24 +53,30 @@ class MyFetcherInterceptor extends BaseGraphQLFetcherInterceptor {
 
 @Slf4j
 class AuthGraphQLContextBuilder extends DefaultGraphQLContextBuilder {
+    AuthService authService
 
     @Override
     Map buildContext(GrailsWebRequest request) {
         Map context = super.buildContext(request)
         def loginToken = request.getHeader("loginToken")
-        log.info "*************************************  buildContext ${ loginToken} ........"
-        if (loginToken) {
+        log.info "***** graphql buildContext ${ loginToken} ........"
+        try {
+            authService.checkPermissions(loginToken)
             log.info "You are auth'd to use this"
             context
-        } else {
-            log.info "You are NOT auth'd to use this!"
-            null
+        } catch (all) {
+            log.error("Login error", all)
+            log.info "You are NOT auth'd to use this: ${all.message}"
+            //null
+            throw new AuthException(all.message)
         }
-
     }
 }
 
 beans = {
+
     // myGraphQLCustomizer(MyGraphQLCustomizer)
-    graphQLContextBuilder(AuthGraphQLContextBuilder)
+    graphQLContextBuilder(AuthGraphQLContextBuilder) {
+        authService = ref("authService")
+    }
 }
