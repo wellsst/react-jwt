@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import API from "./API";
+import API, {post} from "./API";
 import { Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {AuthService} from "./auth.service";
 import Message from "./Message";
@@ -20,10 +20,40 @@ class RegisterConfirm extends Component {
         this.validator = new SimpleReactValidator();
     }
 
+    successHandler(response) {
+        // Success 🎉
+        console.log(response);
+        this.setState({
+            emailSubmitted: true,
+            challengeId: response.data.challengeId,
+            cleanupOlderThan: response.data.cleanupOlderThan
+        });
+
+        let jwt = response.data.jwt;
+        console.log(jwt);
+        let authService = new AuthService();
+        authService.login(jwt);
+
+        const { match: { params }, history } = this.props;
+        history.push({
+            pathname: '/loggedIn',
+            /*state: {
+                email: this.state.email,
+                emailSubmitted: true,
+                challengeId: response.data.challengeId,
+                cleanupOlderThan: response.data.cleanupOlderThan
+            }*/
+        })
+    }
+
     async handleSubmit(e) {
         e.preventDefault();
         if (this.validator.allValid()) {
-            await API.post(
+            post('registerAccept',
+                {requestId: this.state.requestId, challengeId: this.state.challengeId },
+                this.successHandler.bind(this));
+
+            /*await API.post(
                 'registerAccept',
                 {requestId: this.state.requestId, challengeId: this.state.challengeId }
             ).then((response) => {
@@ -43,30 +73,30 @@ class RegisterConfirm extends Component {
                 const { match: { params }, history } = this.props;
                 history.push({
                     pathname: '/loggedIn',
-                    /*state: {
+                    /!*state: {
                         email: this.state.email,
                         emailSubmitted: true,
                         challengeId: response.data.challengeId,
                         cleanupOlderThan: response.data.cleanupOlderThan
-                    }*/
+                    }*!/
                 })
             }).catch((error) => {
                 // Error 😨
                 if (error.response) {
-                    /*
+                    /!*
                      * The request was made and the server responded with a
                      * status code that falls out of the range of 2xx
-                     */
+                     *!/
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
                     this.setState({serverError: error.response.data.message});
                 } else if (error.request) {
-                    /*
+                    /!*
                      * The request was made but no response was received, `error.request`
                      * is an instance of XMLHttpRequest in the browser and an instance
                      * of http.ClientRequest in Node.js
-                     */
+                     *!/
                     console.log(error.request);
                     this.setState({serverError: "The server seems unreachable, try again later"});
                 } else {
@@ -75,7 +105,7 @@ class RegisterConfirm extends Component {
                     this.setState({serverError: "Issue sending request"});
                 }
                 console.log(error.config);
-            });
+            });*/
         } else {
             this.validator.showMessages();
             // rerender to show messages for the first time

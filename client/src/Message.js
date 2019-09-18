@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import API, {httpPost, securePost} from "./API";
+import API, {httpPost, postWithAuth} from "./API";
 import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
 import {AuthService} from "./auth.service";
 

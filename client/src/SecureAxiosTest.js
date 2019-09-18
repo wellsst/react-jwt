@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import {securePost} from "./API";
+import {postWithAuth} from "./API";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Message from "./Message";
 
@@ -28,7 +28,7 @@ class SecureAxiosTest extends Component {
     async handleSubmit(e) {
         e.preventDefault();
         if (this.validator.allValid()) {
-            securePost('testSecurePost',
+            postWithAuth('testSecurePost',
                 {data: this.state.data},
                 this.successHandler.bind(this));
         } else {

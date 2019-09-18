@@ -6,7 +6,7 @@ export default axios.create({
     responseType: "json"
 });
 
-export function securePost(endpoint, dataMap, successHandler) {
+export function postWithAuth(endpoint, dataMap, successHandler, errorHandler) {
     const instance = axios.create({
         baseURL: "http://localhost:8080/",
         responseType: "json"
@@ -17,8 +17,17 @@ export function securePost(endpoint, dataMap, successHandler) {
 
     if (token) {
         instance.defaults.headers.common['loginToken'] = token;
-        httpPost(instance, endpoint, dataMap, successHandler)
+        httpPost(instance, endpoint, dataMap, successHandler, errorHandler)
     }
+}
+
+export function post(endpoint, dataMap, successHandler, errorHandler) {
+    const instance = axios.create({
+        baseURL: "http://localhost:8080/",
+        responseType: "json"
+    });
+
+    httpPost(instance, endpoint, dataMap, successHandler, errorHandler)
 }
 
 function defaultErrorHandler(error) {

@@ -1,6 +1,7 @@
 // Place your Spring DSL code here
 
 import auth.AuthException
+import grails.util.Environment
 import graphql.schema.DataFetchingEnvironment
 import groovy.util.logging.Slf4j
 import org.grails.gorm.graphql.fetcher.GraphQLDataFetcherType
@@ -60,6 +61,16 @@ class AuthGraphQLContextBuilder extends DefaultGraphQLContextBuilder {
         Map context = super.buildContext(request)
         def loginToken = request.getHeader("loginToken")
         log.info "***** graphql buildContext ${ loginToken} ........"
+
+        // Allow dev graphql browser
+        def referer = request.getHeader("Referer")
+        log.info(referer)
+        if (referer && Environment.current == Environment.DEVELOPMENT) {
+            URL url = new URL(referer)
+            log.info url.path
+            url.path.startsWith("/graphql/browser")
+            return context
+        }
         try {
             authService.checkPermissions(loginToken)
             log.info "You are auth'd to use this"
