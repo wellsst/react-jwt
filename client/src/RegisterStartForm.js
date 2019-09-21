@@ -17,7 +17,7 @@ class RegisterStartForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validator = new SimpleReactValidator();
-        console.log(process.env.REACT_APP_SERVER_URL)
+
     }
 
     successHandler(response) {
@@ -65,7 +65,6 @@ class RegisterStartForm extends Component {
 
     render() {
         return <Form>
-            {process.env.REACT_APP_GRAPHQL_SERVER_URL}
             {process.env.REACT_APP_SERVER_URL}
             <FormGroup>
                 <Label for="email">Email address</Label>
