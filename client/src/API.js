@@ -2,13 +2,13 @@ import axios from "axios";
 import {AuthService} from "./auth.service";
 
 export default axios.create({
-    baseURL: "http://localhost:8080/",
+    baseURL: process.env.REACT_APP_SERVER_URL,
     responseType: "json"
 });
 
 export function postWithAuth(endpoint, dataMap, successHandler, errorHandler) {
     const instance = axios.create({
-        baseURL: "http://localhost:8080/",
+        baseURL: process.env.REACT_APP_SERVER_URL,
         responseType: "json"
     });
 
@@ -23,7 +23,7 @@ export function postWithAuth(endpoint, dataMap, successHandler, errorHandler) {
 
 export function post(endpoint, dataMap, successHandler, errorHandler) {
     const instance = axios.create({
-        baseURL: "http://localhost:8080/",
+        baseURL: process.env.REACT_APP_SERVER_URL,
         responseType: "json"
     });
 

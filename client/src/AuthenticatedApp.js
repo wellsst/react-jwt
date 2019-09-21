@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import AppNav from './AppNav';
 import {Row} from 'reactstrap'
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import {BrowserRouter as Router, Link } from "react-router-dom";
 
 import grailsLogo from './images/grails-cupsonly-logo-white.svg';
 import reactLogo from './images/logo.svg';
@@ -35,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
 
 // todo: move hardcoded url to config
 const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/graphql'
+    uri: process.env.REACT_APP_GRAPHQL_SERVER_URL
 });
 
 const client = new ApolloClient({

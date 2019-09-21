@@ -5,6 +5,8 @@ import grails.util.Environment
 import react.auth.AuthService
 import org.springframework.http.HttpStatus
 
+import static org.springframework.http.HttpStatus.UNAUTHORIZED
+
 class LoginController extends BaseController {
     static responseFormats = ['json', 'xml']
     String serverURL = grailsApplication.config.getProperty("grails.serverURL")
@@ -97,6 +99,21 @@ class LoginController extends BaseController {
             def error = [message: all.message]
             render error as JSON, status: HttpStatus.BAD_REQUEST
         }
+    }
+
+    def logout() {
+        try {
+            User user = checkPermissions(getUserToken())
+            authService.logout() // todo: impl this
+            respond response
+        } catch (all) {
+            log.error(all.message)
+            render status: UNAUTHORIZED
+        }
+
+
+
+
     }
 
     @Deprecated

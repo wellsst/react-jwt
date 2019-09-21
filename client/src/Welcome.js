@@ -1,4 +1,3 @@
-import App from "./App";
 
 function Welcome(props) {
     return <p>

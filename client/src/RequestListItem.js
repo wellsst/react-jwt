@@ -2,10 +2,6 @@ import React, {Component} from 'react'
 
 class RequestListItem extends Component {
 
-    constructor() {
-        super();
-    }
-
     render() {
         const {requestId, dateCreated, user} = this.props.item;
 

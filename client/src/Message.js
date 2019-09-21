@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import SimpleReactValidator from 'simple-react-validator';
-import API, {httpPost, postWithAuth} from "./API";
-import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
-import {AuthService} from "./auth.service";
+import {Alert} from "reactstrap";
 
 class Message extends Component {
 
@@ -11,11 +8,11 @@ class Message extends Component {
     }
 
     render() {
-        let type =  'success';
-        if (this.props.type) {
-            type = this.props.type;
-        }
         if (this.props.message) {
+            let type = 'success';
+            if (this.props.type) {
+                type = this.props.type;
+            }
             return <Alert color="{type}">
                 {this.props.message}
             </Alert>

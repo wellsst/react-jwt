@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import API, {post} from "./API";
+import {post} from "./API";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Message from "./Message";
 
@@ -17,6 +17,7 @@ class RegisterStartForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.validator = new SimpleReactValidator();
+        console.log(process.env.REACT_APP_SERVER_URL)
     }
 
     successHandler(response) {
@@ -64,6 +65,8 @@ class RegisterStartForm extends Component {
 
     render() {
         return <Form>
+            {process.env.REACT_APP_GRAPHQL_SERVER_URL}
+            {process.env.REACT_APP_SERVER_URL}
             <FormGroup>
                 <Label for="email">Email address</Label>
                 <Input type="email" name="email" id="email" placeholder="Enter email" value={this.state.email}

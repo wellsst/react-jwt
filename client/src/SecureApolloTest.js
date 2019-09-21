@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import RequestListItem from "./RequestListItem";
-import { Query, withApollo } from 'react-apollo'
+import { withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 
 const LIST_QUERY = gql`
@@ -25,10 +25,6 @@ query {
 class SecureApolloTest extends Component {
     state = {
         requestList: []
-    }
-
-    constructor(props) {
-        super(props);
     }
 
     componentDidMount() {

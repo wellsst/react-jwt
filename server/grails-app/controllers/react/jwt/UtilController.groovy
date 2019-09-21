@@ -1,6 +1,5 @@
 package react.jwt
 
-import grails.converters.JSON
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 

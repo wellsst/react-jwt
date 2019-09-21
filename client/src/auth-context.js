@@ -51,10 +51,11 @@ function AuthProvider(props) {
         return <FullPageSpinner />
     }
 
+    // not needed, hold for now
     const login = () => {
         this.requestMade = false
-        let authService = new AuthService();
-        const data = {user: "some user", listItems: []};
+        /*let authService = new AuthService();
+        const data = {user: "some user", listItems: []};*/
         // return authService.isLoggedIn();
         // return authService.isLoggedIn();
     } // make a login request
