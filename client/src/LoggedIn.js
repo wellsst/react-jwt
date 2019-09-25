@@ -3,7 +3,7 @@ import React, {Component, useEffect} from "react";
 class LoggedIn extends Component {
 
     goHome() {
-        window.location.reload();
+        window.location.href = "/";
     }
 
     componentDidMount() {

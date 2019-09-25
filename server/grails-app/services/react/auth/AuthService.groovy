@@ -84,7 +84,10 @@ class AuthService extends BaseService {
         //  or will it?  https://en.wikipedia.org/wiki/Replay_attack
 
         requestingUser.loginToken = jws
+
+        requestingUser.registrationRequest = null
         requestingUser.save(flush: true)
+        registrationRequest.delete()
         jws
     }
 
@@ -94,7 +97,9 @@ class AuthService extends BaseService {
         RegistrationRequest registrationRequest = RegistrationRequest.findByRequestIdAndChallengeId loginRequestId, challengeId
 
         if (registrationRequest) {
-            return createJWTForUser(registrationRequest)
+            String jws = createJWTForUser(registrationRequest)
+            //registrationRequest.delete(flush: true)
+            return jws
         } else {
             String msg = "User signup attempt but no login loginToken found for ${loginRequestId} and challengeId: ${challengeId} "
             throw new AuthException(msg)

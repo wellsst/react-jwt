@@ -110,10 +110,16 @@ class LoginController extends BaseController {
             log.error(all.message)
             render status: UNAUTHORIZED
         }
+    }
 
-
-
-
+    def confirmLoggedIn() {
+        try {
+            User user = authService.checkPermissions(getUserToken())
+            respond "OK"
+        } catch (all) {
+            log.error(all.message)
+            render status: UNAUTHORIZED
+        }
     }
 
     @Deprecated

@@ -27,7 +27,8 @@ class User {
     String loginToken
 
     static hasOne = [registrationRequest:RegistrationRequest]
-    // RegistrationRequest registrationRequest
+    // static fetchMode = [registrationRequest: 'lazy']
+    RegistrationRequest registrationRequest
 
     static constraints = {
         username email: true, nullable: false, blank: false, unique: true
