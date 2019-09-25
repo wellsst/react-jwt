@@ -1,28 +1,32 @@
 import React, {Component, useEffect} from "react";
-import Button from "reactstrap/src/Button";
-import Form from "reactstrap/src/Form";
 import {postWithAuth} from "./API";
+import {Button, Form} from "reactstrap";
+import {AuthService} from "./auth.service";
 
 class Logout extends Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
     successHandler(response) {
-        console.log(response)
+        console.debug(response)
         this.setState({serverMessage: response.data.message})
 
+        let authService = new AuthService();
+        authService.logout();
+        this.goHome()
+    }
+
+    goHome() {
+        window.location.href = "/";
     }
 
     async handleSubmit(e) {
         e.preventDefault();
-        if (this.validator.allValid()) {
-            postWithAuth('logout',
-                {data: this.state.data},
-                this.successHandler.bind(this));
-        } else {
-            this.validator.showMessages();
-            // rerender to show messages for the first time
-            // you can use the autoForceUpdate option to do this automatically`
-            this.forceUpdate();
-        }
+        postWithAuth('logout',
+            {data: ""},
+            this.successHandler.bind(this));
     }
 
     render() {

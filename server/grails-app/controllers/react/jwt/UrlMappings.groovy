@@ -6,6 +6,7 @@ class UrlMappings {
 
         "/signup" (controller: "login", action: "signup")
         "/login" (controller: "login", action: "login")
+        "/logout" (controller: "login", action: "logout")
         "/registerRequest" (controller: "login", action: "registerRequest")
         "/registerConfirm/$requestId" (controller: "login", action: "registerConfirm")
         "/registerAccept" (controller: "login", action: "registerAccept")

@@ -19,6 +19,7 @@ import {setContext} from 'apollo-link-context';
 import SecureApolloTest from "./SecureApolloTest";
 import {AuthService} from "./auth.service";
 import {postWithAuth} from "./API";
+import Logout from "./Logout";
 
 let authService = new AuthService();
 
@@ -138,6 +139,7 @@ class AuthenticatedApp extends Component {
                                 </Link>
                                 <p>Secure Axios Test: <SecureAxiosTest/></p>
                                 <p>Secure (almost) Apollo Test: <SecureApolloTest/></p>
+                                <Logout/>
 
                                 <div id="controllers" role="navigation">
                                     <h2>Available Controllers:</h2>

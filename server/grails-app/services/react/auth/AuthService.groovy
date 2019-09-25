@@ -91,6 +91,19 @@ class AuthService extends BaseService {
         jws
     }
 
+    def logout(String token) {
+        if (!token) {
+            throw new AuthException("No loginToken provided for logout")
+        }
+        User user = User.findByLoginToken(token)
+        if (user) {
+            user.loginToken = null
+            user.save()
+        } else {
+            throw new AuthException("COuld not logout user, token not found")
+        }
+    }
+
     /* User has clicked on the email link */
 
     def jwtFromRequestId(String loginRequestId, String challengeId) {
@@ -119,12 +132,12 @@ class AuthService extends BaseService {
 
     def checkPermissions(String token) {
         if (!token) {
-            throw new Exception("No loginToken provided")
+            throw new AuthException("No loginToken provided")
         }
         log.info "Check permissions: ${token}"
         /*User user = User.findByUsername(loginToken, [cache: true])
         if (!user) {
-            throw new Exception("No user found for loginToken: ${loginToken}")
+            throw new AuthException("No user found for loginToken: ${loginToken}")
         }
         user */
         loginFromJWT(token)

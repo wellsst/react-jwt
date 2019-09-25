@@ -65,7 +65,6 @@ class RegisterStartForm extends Component {
 
     render() {
         return <Form>
-            {process.env.REACT_APP_SERVER_URL}
             <FormGroup>
                 <Label for="email">Email address</Label>
                 <Input type="email" name="email" id="email" placeholder="Enter email" value={this.state.email}

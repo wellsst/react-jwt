@@ -103,9 +103,9 @@ class LoginController extends BaseController {
 
     def logout() {
         try {
-            User user = checkPermissions(getUserToken())
-            authService.logout() // todo: impl this
-            respond response
+            User user = authService.checkPermissions(getUserToken())
+            authService.logout(getUserToken())
+            respond "OK"
         } catch (all) {
             log.error(all.message)
             render status: UNAUTHORIZED
