@@ -3,6 +3,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import {post} from "./API";
 import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Message from "./Message";
+import {Link} from "react-router-dom";
 
 class RegisterStartForm extends Component {
 
@@ -78,9 +79,10 @@ class RegisterStartForm extends Component {
             <Message message={this.state.serverMessage}/>
             <Message message={this.state.serverError} type='danger'/>
 
-            <Button variant="primary" type="submit" onClick={this.handleSubmit}>
+            <Button variant="primary" type="button" class="btn btn-primary" onClick={this.handleSubmit}>
                 Register
             </Button>
+            <Link type="button" class="btn btn-secondary" to="/">Start again</Link>
         </Form>
     }
 }

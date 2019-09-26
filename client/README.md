@@ -48,7 +48,7 @@ yarn add typescript
 Upgrade caniuse-lite:
 yarn upgrade caniuse-lite browserslist
 
-
+npm install classnames --save
 
 ## To start
 

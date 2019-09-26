@@ -5,7 +5,7 @@ class RequestListItem extends Component {
     render() {
         const {requestId, dateCreated, user} = this.props.item;
 
-        return <li className="list-group-item">{requestId} - {dateCreated} - {user.username}</li>
+        return <li class="list-group-item list-group-item-light">{requestId} - {dateCreated} - {user.username}</li>
     }
 }
 

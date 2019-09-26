@@ -10,10 +10,10 @@ class Message extends Component {
     render() {
         if (this.props.message) {
             let type = 'success';
-            if (this.props.type) {
+            if (this.props.type !== undefined ) {
                 type = this.props.type;
             }
-            return <Alert color="{type}">
+            return <Alert color="{type}" class="{type}">
                 {this.props.message}
             </Alert>
         }

@@ -5,7 +5,6 @@ class UnauthenticatedApp extends Component {
     render() {
 
         return [
-
             <RegisterHandler/>
         ]
     }

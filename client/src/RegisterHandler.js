@@ -4,10 +4,11 @@ import SimpleReactValidator from 'simple-react-validator';
 import API from "./API";
 import RegisterConfirm from "./RegisterConfirm";
 import RegisterStartForm from "./RegisterStartForm";
-import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotFound from "./NotFound";
 import LoggedIn from "./LoggedIn";
 import InvalidLogin from "./InvalidLogin";
+import IntroBlurb from "./IntroBlurb";
 
 class RegisterHandler extends Component {
 
@@ -80,18 +81,8 @@ class RegisterHandler extends Component {
 
     render() {
         return <BrowserRouter>
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/">Start again</Link>
-                    </li>
-                    {/*<li>
-                        <Link to="/registerSubmitted">registerSubmitted</Link>
-                    </li>
-                    <li>
-                        <Link to="/contact">Dud link</Link>
-                    </li>*/}
-                </ul>
+            <IntroBlurb/>
+            <div class="container">
                 <Switch>
                     <Route exact path="/" component={RegisterStartForm} />
                     <Route path="/registerSubmitted" component={RegisterEmailSubmitted} />

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SimpleReactValidator from 'simple-react-validator';
 import {postWithAuth} from "./API";
-import {Button, Form, FormGroup, Input, Label} from "reactstrap";
+import {Alert, Button, Form, FormGroup, Input, Label} from "reactstrap";
 import Message from "./Message";
 
 class SecureAxiosTest extends Component {
@@ -53,7 +53,7 @@ class SecureAxiosTest extends Component {
                 <Input type="text" name="data" id="data" placeholder="Type something to send to the server with JWT auth"
                        value={this.state.data}
                        onChange={this.handleChange} autoFocus/>
-                {this.validator.message('data', this.state.data, 'required|max:200')}
+                <Message message={this.validator.message('data', this.state.data, 'required|max:200')} type='danger'/>
             </FormGroup>
 
             <Message message={this.state.serverMessage}/>

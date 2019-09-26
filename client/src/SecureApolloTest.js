@@ -32,13 +32,26 @@ class SecureApolloTest extends Component {
     }
 
     render() {
+
+        let button = <button type="submit" className="btn btn-primary" onClick={() => this.updateList()}>Update GraphQL list</button>;
+
+        if (!this.state.requestList || this.state.requestList.length === 0) {
+           return <div>
+               <p>No results</p>
+               {button}
+           </div>
+        }
+
         return (
             <div className="form-group">
-                <button type="submit" className="btn btn-primary" onClick={() => this.updateList()}>Update GraphQL list
-                </button>
-                {
-                    this.state.requestList.map(item => <RequestListItem key={item.id} item={item}/>)
-                }
+                {button}
+                <ul className="list-group">
+                    {
+                        this.state.requestList.map(item =>
+                            <RequestListItem key={item.id} item={item}/>
+                        )
+                    }
+                </ul>
             </div>
             /*<Query query={LIST_QUERY}>
                 {({ loading, error, data }) => {

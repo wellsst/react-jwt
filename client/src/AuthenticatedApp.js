@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import AppNav from './AppNav';
-import {Row} from 'reactstrap'
+import {Button, Card, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap'
 import {BrowserRouter, Link} from "react-router-dom";
 
 import grailsLogo from './images/grails-cupsonly-logo-white.svg';
@@ -20,8 +20,11 @@ import SecureApolloTest from "./SecureApolloTest";
 import {AuthService} from "./auth.service";
 import {postWithAuth} from "./API";
 import Logout from "./Logout";
+import IntroBlurb from "./IntroBlurb";
+import classnames from 'classnames';
 
 let authService = new AuthService();
+
 
 const authLink = setContext((_, {headers}) => {
     // get the authentication token from local storage if it exists
@@ -53,11 +56,22 @@ class AuthenticatedApp extends Component {
             version: CLIENT_VERSION,
             react: REACT_VERSION
         },
+        activeTab: '2',
         collapse: false
     }
 
-    toggle = () => {
-        this.setState({collapse: !!this.state.collapse})
+    constructor(props) {
+        super(props);
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle(tab) {
+        if (this.state.activeTab !== tab) {
+            this.setState({
+                activeTab: tab
+            });
+        }
     }
 
     successHandler(response) {
@@ -71,7 +85,7 @@ class AuthenticatedApp extends Component {
 
         authService.logout();
         window.location.href = "/notLoggedIn"
-       // this.props.history.push('/notLoggedIn')
+        // this.props.history.push('/notLoggedIn')
     }
 
     componentDidMount() {
@@ -101,59 +115,63 @@ class AuthenticatedApp extends Component {
                         <img className="hero-logo" src={reactLogo} alt="React"/>
                     </div>,
 
+                    <Nav tabs>
+                        <NavItem>
+                            <NavLink
+                                className={classnames({active: this.state.activeTab === '1'})}
+                                onClick={() => {
+                                    this.toggle('1');
+                                }}>
+                                Info
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink
+                                className={classnames({active: this.state.activeTab === '2'})}
+                                onClick={() => {
+                                    this.toggle('2');}}>
+                                Tests
+                            </NavLink>
+                        </NavItem>
+                    </Nav>
+                    <TabContent activeTab={this.state.activeTab}>
+                        <TabPane tabId="1">
+                            <div id="content">
+                                <section className="row colset-2-its">
+                                    <h1>JWT Template/Demo</h1>
+
+                                    <IntroBlurb/>
+
+                                    <Link to="/welcome">
+                                        <span className="label">You will need to have a valid JWT token to see this</span>
+                                    </Link>
+
+                                    <Logout/>
+                                </section>
+
+                            </div>
+                        </TabPane>
+                        <TabPane tabId="2">
+                            <Row>
+                                <Col sm="6">
+                                    <Card body>
+                                        <CardTitle>Secure Axios HTTP Post Server roundtrip</CardTitle>
+                                        <CardText><SecureAxiosTest/></CardText>
+                                        {/*<Button>Go somewhere</Button>*/}
+                                    </Card>
+                                </Col>
+                                <Col sm="6">
+                                    <Card body>
+                                        <CardTitle>Secure Apollo GraphQL Server roundtrip</CardTitle>
+                                        <CardText><SecureApolloTest/></CardText>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </TabPane>
+                    </TabContent>
+
                     <Row key={2}>
-                        <div id="content">
-                            <section className="row colset-2-its">
-                                <h1>JWT Template/Demo</h1>
 
-                                <p>
-                                    Welcome...you should only see this if you are logged in, it is guarded by the auth
-                                    guard
-                                </p>
-                                <p>
-                                    This is a demo or tutorial of using JSON Web Tokens (JWT) for authentication.
-                                    Angular in
-                                    the
-                                    front end and Grails in the
-                                    backend.
-
-                                    The basic steps for the user are:
-                                </p>
-
-                                <ol>
-                                    {/*<li>Start with the <a routerLink="/register">Register for JWT auth</a></li>*/}
-                                    <li>Enter their email address. This will send them a short lived unique URL</li>
-                                    <li>User gets the email and click on the link</li>
-                                    <li>This will generate their secure JWT which will be sent to their browser and
-                                        stored
-                                        there
-                                    </li>
-                                    <li>Each request that needs a JWT the browser must send it to the server</li>
-                                    <li>The server will be able to authenticate and authorise based on the JWT given
-                                    </li>
-                                </ol>
-
-
-                                <Link to="/welcome">
-                                    <span className="label">You will need to have a valid JWT token to see this</span>
-                                </Link>
-                                <p>Secure Axios Test: <SecureAxiosTest/></p>
-                                <p>Secure (almost) Apollo Test: <SecureApolloTest/></p>
-                                <Logout/>
-
-                                <div id="controllers" role="navigation">
-                                    <h2>Available Controllers:</h2>
-                                    <ul>
-                                        {serverInfo.controllers ? serverInfo.controllers.map(controller => {
-                                            return <li key={controller.name}><a
-                                                href={SERVER_URL + controller.logicalPropertyName}>{controller.name}</a>
-                                            </li>;
-                                        }) : null}
-                                    </ul>
-                                </div>
-                            </section>
-
-                        </div>
 
                     </Row>,
                     <Footer key={3}/>
