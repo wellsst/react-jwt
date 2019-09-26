@@ -57,12 +57,11 @@ function AuthProvider(props) {
         /*let authService = new AuthService();
         const data = {user: "some user", listItems: []};*/
         // return authService.isLoggedIn();
-        // return authService.isLoggedIn();
     } // make a login request
 
     const logout = () => {
         let authService = new AuthService();
-        authService.logout(); // todo call this from a button
+        authService.logout();
     } // clear the token in localStorage and the user data
 
     // note, I'm not bothering to optimize this `value` with React.useMemo here

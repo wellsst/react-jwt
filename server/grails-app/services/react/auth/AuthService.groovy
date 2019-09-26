@@ -76,7 +76,7 @@ class AuthService extends BaseService {
                 setExpiration(expirationDate).
                 signWith(key).compact()
 
-        // todo: would setting the ID, saving it and rechecking on each request add a layer of security?
+        // question: would setting the ID, saving it and rechecking on each request add a layer of security?
         // like: .setId(UUID.randomUUID()) and using as a nonce
         // https://tools.ietf.org/html/rfc7519#section-4.1.7 says:
         // 'The "jti" claim can be used to prevent the JWT from being replayed'

@@ -1,4 +1,3 @@
-// import moment from 'moment';
 
 // fixme: Hack to get around TS/Moment incompat issues
 let moment = require("moment");
@@ -7,9 +6,6 @@ if ("default" in moment) {
 }
 
 export class AuthService {
-    /*public token: string;
-    public username: string;
-    */
     public error: string;
 
 
@@ -17,21 +13,6 @@ export class AuthService {
         this.error = ""
     }
 
-    /*signupRequest(emailAddress: string): Observable<JwtServerResponse> {
-      return this.http.post<JwtServerResponse>(environment.serverUrl + 'registerRequest/',
-        JSON.stringify({emailAddress: emailAddress}), httpOptions); // todo: should not need httpOptions here use the inteceptor
-    }
-
-    registerAccept(requestId: string, challengeId: string): Observable<JwtServerResponse> {
-      return this.http.post(environment.serverUrl + 'registerAccept',
-        JSON.stringify({requestId: requestId, challengeId: challengeId}), httpOptions);
-    }*/
-
-    /* requestJWT(loginId: string) {
-       return this.http.post(environment.serverUrl + '/requestJWT/' + loginId,
-         {loginId: loginId}, httpOptions).do(res => this.setSession);
-     }
-   */
     login(jwtToken: string) {
         this.setSession(jwtToken);
     }
@@ -111,62 +92,4 @@ export class AuthService {
         const expiresAt = JSON.parse(expiration);
         return moment(expiresAt);
     }
-
-
-    /*login(username: string, password: string): Observable<boolean> {
-      return this.http.post(environment.serverUrl + '/login/',
-        JSON.stringify({username: username, password: password}), httpOptions).map((response: any) => {
-        // login successful if there's a jwt token in the response
-        let token = response && response.token;
-
-        if (token) {
-          // set token property
-          this.token = token;
-          this.username = username;
-
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
-
-          // return true to indicate successful login
-          return true;
-        } else {
-          // return false to indicate failed login
-          return false;
-        }
-      });
-    }
-
-    signup(emailAddress: string): Observable<boolean> {
-      return this.http.post(environment.serverUrl + '/signup',
-        JSON.stringify({emailAddress: emailAddress}), httpOptions).map((response: any) => {
-        // login successful if there's a jwt token in the response
-        let token = response && response.token;
-
-        if (token) {
-          // set token property
-          this.token = token;
-          this.username = emailAddress;
-
-          // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({username: emailAddress, token: token}));
-
-          // return true to indicate successful login
-          return true;
-        } else {
-          // return false to indicate failed login
-          this.error = response.text;
-          return false;
-        }
-      });
-    }
-
-    logout(): void {
-      // clear token remove user from local storage to log user out
-      this.token = null;
-      localStorage.removeItem('currentUser');
-    }
-
-    isLoggedIn(): boolean {
-      return this.token != null;
-    }*/
 }

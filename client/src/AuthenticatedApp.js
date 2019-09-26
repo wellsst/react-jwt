@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import AppNav from './AppNav';
-import {Button, Card, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap'
-import {BrowserRouter, Link} from "react-router-dom";
+import { Card, CardText, CardTitle, Col, Nav, NavItem, NavLink, Row, TabContent, TabPane} from 'reactstrap'
+import {BrowserRouter} from "react-router-dom";
 
 import grailsLogo from './images/grails-cupsonly-logo-white.svg';
 import reactLogo from './images/logo.svg';
@@ -38,7 +38,6 @@ const authLink = setContext((_, {headers}) => {
     }
 });
 
-// todo: move hardcoded url to config
 const httpLink = createHttpLink({
     uri: process.env.REACT_APP_GRAPHQL_SERVER_URL
 });
@@ -153,7 +152,6 @@ class AuthenticatedApp extends Component {
                                     <Card body>
                                         <CardTitle>Secure Axios HTTP Post Server roundtrip</CardTitle>
                                         <CardText><SecureAxiosTest/></CardText>
-                                        {/*<Button>Go somewhere</Button>*/}
                                     </Card>
                                 </Col>
                                 <Col sm="6">
