@@ -142,10 +142,6 @@ class AuthenticatedApp extends Component {
 
                                     <IntroBlurb/>
 
-                                    <Link to="/welcome">
-                                        <span className="label">You will need to have a valid JWT token to see this</span>
-                                    </Link>
-
                                     <Logout/>
                                 </section>
 
