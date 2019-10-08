@@ -30,7 +30,7 @@ export function post(endpoint, dataMap, successHandler, errorHandler) {
     httpPost(instance, endpoint, dataMap, successHandler, errorHandler)
 }
 
-function defaultErrorHandler(error) {
+export function defaultErrorHandler(error) {
     // Error 😨
     if (error.response) {
         /*

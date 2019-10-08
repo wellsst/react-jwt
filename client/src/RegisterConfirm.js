@@ -45,7 +45,7 @@ class RegisterConfirm extends Component {
         if (this.validator.allValid()) {
             post('registerAccept',
                 {requestId: this.state.requestId, challengeId: this.state.challengeId },
-                this.successHandler.bind(this));
+                this.successHandler.bind(this), defaultErrorHandler.bind(this));
         } else {
             this.validator.showMessages();
             // rerender to show messages for the first time
