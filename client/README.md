@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+React auth was based on the great work by Kent C Dodds: https://kentcdodds.com/blog/authentication-in-react-applications
+
 ## Additions to the base
 
 

@@ -28,7 +28,7 @@ Advantages:
 ## Current framework versions used
 
 * Grails 3.x
-* React 
+* React. Auth on the react side is based on the great work by Kent C Dodds: https://kentcdodds.com/blog/authentication-in-react-applications
 
 ## Starting up locally
 
