@@ -28,6 +28,7 @@ npm install axios --save
 
 GraphQL - apollo
 yarn add apollo-boost react-apollo graphql apollo-cache apollo-link apollo-link-context apollo-cache-inmemory apollo-cache-inmemory apollo-client
+npm i graphql-tag
 or npm install <all the above> --save
 //apollo-utilities
 
