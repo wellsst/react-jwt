@@ -37,6 +37,7 @@ class User {
     }
 
     static mapping = {
+        table 'app_user'
         username index: "idx_username"
         loginToken length: 500
     }
